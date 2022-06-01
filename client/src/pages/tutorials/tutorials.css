@@ -1,0 +1,16 @@
+.icon-meaning{
+    display: flex;
+    align-items: center;
+    color: #087a75;
+    margin: 10px 0;
+}
+.icon{
+    margin-right: 10px;
+}
+.tuts{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    margin: auto;
+}

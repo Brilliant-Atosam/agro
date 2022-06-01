@@ -1,0 +1,28 @@
+.input-control{
+  max-width: 400px;
+  width: 100%;
+  border: 2.2px solid #fff;
+  border-radius: 7px;
+  height: 40px;
+  padding: 5px 10px;
+  margin-bottom: 20px;
+}
+#date {
+  width: 100%;
+  margin-top: 7px;
+}
+.input{
+    border: none;
+    width: 100%;
+    height: 100%;
+    font-weight: 600;
+    letter-spacing: 5px;
+    color: #fff;
+    background-color: transparent;
+}
+.input::placeholder{
+  color: white;
+}
+.input:focus{
+    outline: none;
+}
