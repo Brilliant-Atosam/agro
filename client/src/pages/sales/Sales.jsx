@@ -9,6 +9,7 @@ import {
   YAxis,
 } from "recharts";
 import moment from "moment";
+import Footer from "../../components/Footer";
 import { useSelector } from "react-redux";
 import QuickStat from "./QuickStat";
 import Navbar from "../../components/nav/Navbar";
@@ -317,6 +318,7 @@ const Sales = () => {
           </AreaChart>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

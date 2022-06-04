@@ -23,14 +23,7 @@ function App() {
       <div className="container">
         <Routes>
           <Route path="/tuts" element={<Tutorials />} />
-          <Route
-            path="/sub"
-            element={store ? <Subscribe /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/renew"
-            element={store ? <RenewSub /> : <Navigate to="/login" />}
-          />
+
           <Route path="/register" element={<Register />} />
           <Route
             path="/login"

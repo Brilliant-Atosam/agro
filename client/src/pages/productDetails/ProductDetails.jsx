@@ -10,6 +10,7 @@ import DataTable from "../../components/Table";
 import { request } from "../../request";
 import QuickStat from "./QuickStat";
 import moment from "moment";
+import Footer from '../../components/Footer'
 import {
   Area,
   AreaChart,
@@ -535,6 +536,7 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

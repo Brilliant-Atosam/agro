@@ -12,6 +12,7 @@ const NavbarAdmin = ({ refresh }) => {
   const handleLogout = () => {
     dispatch(Logout());
     dispatch(clearClients());
+    window.location.href = "/admin";
   };
 
   return (

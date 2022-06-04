@@ -8,6 +8,7 @@ import {
   Search,
   RestartAlt,
 } from "@mui/icons-material";
+import Footer from '../../components/Footer'
 import SnackbarAlert from "../../components/Snackback";
 import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
@@ -436,6 +437,7 @@ const Items = () => {
           />
         </div>
       </div>
+      <Footer />
     </>
   );
 };

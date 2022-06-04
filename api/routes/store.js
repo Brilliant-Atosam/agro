@@ -49,15 +49,17 @@ router.put("/:id", async (req, res) => {
 });
 // Reset store's paasword
 router.put("/password/reset", async (req, res) => {
+  const { oldPassword, password } = req.body;
   try {
-    await Store.findOneAndUpdate(
-      { id: req.query.id },
-      { password: await bcrypt.hash(req.body.password, 10) }
-    );
-    res.json("Reset successfully");
+    const store = await Store.findOne({ id: req.query.id });
+    if (!(await bcrypt.compare(oldPassword, store.password))) {
+      res.status(401).json("Wrong password!");
+    } else {
+      await store.updateOne({ password: await bcrypt.hash(password, 10) });
+      res.json("Reset was successful!");
+    }
   } catch (err) {
     res.status(500).json("Oooops! Try again");
-    console.log(err.message);
   }
 });
 // DELETE STORE

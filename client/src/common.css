@@ -165,6 +165,27 @@
   cursor: pointer;
   padding: 0 10px;
 }
+.footer{
+  width: 100%;
+  padding: 20px;
+  background-color: #559379a5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.footer-items{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.footer-links{
+  cursor: pointer;
+  text-decoration: underline;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: black;
+}
 @media screen and (max-width: 770px) {
   .chart {
     overflow: scroll;

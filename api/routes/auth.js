@@ -32,26 +32,6 @@ router.post("/admin", async (req, res) => {
     }
   } catch (err) {
     res.status(500).json("Oooops! Please try again");
-    console.log(err.messsages);
   }
 });
-// LOGIN again
-router.post("/renew", async (req, res) => {
-  const { id } = req.body;
-  try {
-    const updatedStore = await Store.findOneAndUpdate(
-      { id },
-      {
-        lastVerified: moment().format("MM/DD/YYYY"),
-        nextVerification: moment().add(30, "days").format("MM/DD/YYYY"),
-      }
-    );
-    res.json(updatedStore);
-    console.log(updatedStore);
-  } catch (err) {
-    res.status(500).json("Oooops! Please try again");
-    console.log(err);
-  }
-});
-
 module.exports = router;
