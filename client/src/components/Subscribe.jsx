@@ -10,7 +10,6 @@ import { usePaystackPayment } from "react-paystack";
 import { useDispatch } from "react-redux";
 import { Logout } from "../redux/login";
 import { request } from "../request";
-
 export default function Subscribe({
   open,
   subTitle,
@@ -48,6 +47,7 @@ export default function Subscribe({
           <DialogContentText>{subContent}</DialogContentText>
         </DialogContent>
         <DialogActions>
+          <Button onClick={() => dispatch(Logout())}>Logout</Button>
           <Button
             onClick={() => {
               initializePayment(onSuccess, onClose);

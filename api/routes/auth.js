@@ -4,19 +4,20 @@ const Store = require("../models/Store");
 const moment = require("moment");
 // LOGIN
 router.post("/", async (req, res) => {
-  const { id, password, admin } = req.body;
+  const { password, admin } = req.body;
   try {
-    const store = await Store.findOne({ id });
+    const store = await Store.findOne({ id: req.body.id });
     const adm = await bcrypt.compare(password, store.admin);
     const attendant = await bcrypt.compare(password, store.password);
+    const { id, ...other } = store._doc;
     admin && adm
-      ? res.json({ mode: "Admin", ...store })
+      ? res.json({ mode: "Admin", id })
       : !admin && attendant
-      ? res.json({ mode: "Attendant", ...store })
+      ? res.json({ mode: "Attendant", id })
       : res.status(409).json("Invalid login credentials");
   } catch (err) {
     res.status(500).json("Oooops! Please try again");
-    console.log(err.messsages);
+    console.log(err);
   }
 });
 // LOGIN

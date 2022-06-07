@@ -20,9 +20,9 @@ const Navbar = ({ refresh }) => {
     setShowMenu(!showMenu);
   };
   const handleLogout = () => {
-    dispatch(Logout());
     dispatch(clearItems());
     dispatch(clearSales());
+    dispatch(Logout());
   };
 
   return (
