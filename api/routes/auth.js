@@ -4,15 +4,16 @@ const Store = require("../models/Store");
 const moment = require("moment");
 // LOGIN
 router.post("/", async (req, res) => {
-  const { id, password } = req.body;
+  const { id, password, admin } = req.body;
   try {
     const store = await Store.findOne({ id });
-    const passed = store
-      ? await bcrypt.compare(password, store?.password)
-      : true;
-    !store || !passed
-      ? res.status(401).json("Invalid login details")
-      : res.json(store);
+    const adm = await bcrypt.compare(password, store.admin);
+    const attendant = await bcrypt.compare(password, store.password);
+    admin && adm
+      ? res.json({ mode: "Admin", ...store })
+      : !admin && attendant
+      ? res.json({ mode: "Attendant", ...store })
+      : res.status(409).json("Invalid login credentials");
   } catch (err) {
     res.status(500).json("Oooops! Please try again");
     console.log(err.messsages);

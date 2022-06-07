@@ -11,6 +11,20 @@
   width: 100%;
   margin-top: 7px;
 }
+.opt{
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 10px 0;
+  color: white;
+}
+.opt label{
+  text-decoration: underline;
+}
+.opt input{
+  margin-right: 10px;
+}
 .input{
     border: none;
     width: 100%;

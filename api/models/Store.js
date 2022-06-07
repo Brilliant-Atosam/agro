@@ -4,6 +4,7 @@ const storeSchema = new mongoose.Schema({
   name: String,
   phone: String,
   password: String,
+  admin: String,
   createdAt: String,
   lastVerified: String,
   nextVerification: String,

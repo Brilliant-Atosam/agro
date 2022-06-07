@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
 import moment from "moment";
-import { useSelector } from "react-redux";
-import {
-  LockClock,
-  MoreTimeSharp,
-  Timer,
-  TimerSharp,
-} from "@mui/icons-material";
-const QuickStat = ({ itemsNum, outStock, dailySales, expired, nextSub }) => {
+import { TimerSharp } from "@mui/icons-material";
+const QuickStat = ({
+  itemsNum,
+  outStock,
+  dailySales,
+  expired,
+  nextSub,
+  user,
+}) => {
   return (
     <div className="quick-stat">
       <div className="quick-stat-header">
-        <h1 className="heading">Quick Stat</h1>
+        <h1 className="heading">
+          Logged as: <b>{user}</b>
+        </h1>
         <div className="quick-stat-header-left">
           <h1 className="heading">
             Store Id: <b>{localStorage.getItem("storeId")}</b>

@@ -3,6 +3,7 @@ const cors = require("cors");
 const express = require("express");
 const server = express();
 require("dotenv").config();
+const bcrypt = require("bcryptjs");
 // DB CONNECTION
 mongoose.connect(process.env.DB_CONNECTION_STRING, (err) => {
   err ? console.log(err.message) : console.log("Connected to DB");

@@ -1,6 +1,3 @@
-import React, { useEffect, useState } from "react";
-import moment from "moment";
-import { useSelector } from "react-redux";
 const QuickStat = ({ itemsNum, outStock, active, expired }) => {
   return (
     <div className="quick-stat">

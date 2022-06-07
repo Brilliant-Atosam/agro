@@ -10,7 +10,7 @@ import DataTable from "../../components/Table";
 import { request } from "../../request";
 import QuickStat from "./QuickStat";
 import moment from "moment";
-import Footer from '../../components/Footer'
+import Footer from "../../components/Footer";
 import {
   Area,
   AreaChart,
@@ -28,15 +28,18 @@ import SellDial from "../dashboard/Sell";
 import Navbar from "../../components/nav/Navbar";
 import Loading from "../../components/Loading";
 import { salesFailure, salesStart, salesSuccess } from "../../redux/sales";
+import { itemsStart, itemsFailure, itemsSuccess } from "../../redux/items";
 import { useDispatch } from "react-redux";
 import Restock from "../dashboard/Restock";
 const ProductDetails = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const store = useSelector((state) => state.store.Store);
   const storeId = localStorage.getItem("storeId");
-  const item = useSelector((state) =>
+  const Item = useSelector((state) =>
     state.items.Items.find((item) => item.id === id)
   );
+  const [item, setItem] = useState(Item);
   const [openEdit, setOpenEdit] = useState(false);
   const [openRestock, setOpenRestock] = useState(false);
   const [stock, setStock] = useState(0);
@@ -111,6 +114,7 @@ const ProductDetails = () => {
         cost: item.price * quantity,
         quantity,
         createdAt: moment().format("DD/MM/YYYY"),
+        mode: store.mode,
         id: (Math.floor(Math.random() * 100000) + 100000)
           .toString()
           .substring(1),
@@ -160,17 +164,61 @@ const ProductDetails = () => {
       setLoading(false);
     }
   };
+  // EDIT ITEM
+  const [name, setName] = useState(item.name);
+  const [supplier, setSupplier] = useState(item.supplier);
+  const [implications, setImplications] = useState(
+    item.implications.toString()
+  );
+  const [expiry, setExpiry] = useState(item.expiry);
+  const [dosage, setDosage] = useState(item.dosage);
+  const [price, setPrice] = useState(item.price);
   const [loading, setLoading] = useState(false);
+  const handleEdit = async () => {
+    const itemDetails = {
+      name,
+      supplier,
+      implications: implications.split(", "),
+      dosage,
+      price,
+      expiry: moment(expiry).format("MM/DD/YYYY"),
+      id,
+    };
+    try {
+      const res = await request.put(`/items/${id}`, itemDetails);
+      setItem({
+        name,
+        supplier,
+        implications: implications.split(", "),
+        dosage,
+        price,
+        expiry,
+        stock: item.stock,
+      });
+      setOpenAlert(true);
+      setMessage(res.data);
+    } catch (err) {
+      setMessage(err.response.data);
+      setSeverity("error");
+    }
+  };
   // REFRESHING DATA
   const handleRefresh = async () => {
     setLoading(true);
     dispatch(salesStart());
+    dispatch(itemsStart());
     try {
       const sales = await request.get(`/sales?storeId=${storeId}`);
       dispatch(salesSuccess(sales.data));
+      const items = await request.get(`/idems?storeId=${storeId}`);
+      dispatch(itemsSuccess(items.data));
       window.location.reload();
     } catch (err) {
       dispatch(salesFailure());
+      dispatch(itemsFailure());
+      setOpenAlert(true);
+      setSeverity("error");
+      setMessage(err.response.data);
     }
     setLoading(false);
   };
@@ -376,7 +424,22 @@ const ProductDetails = () => {
         option2="Delete"
         event={() => deleteItem()}
       />
-      <FormDialog open={openEdit} handleClose={() => setOpenEdit(false)} />
+      <FormDialog
+        open={openEdit}
+        name={name}
+        handleClose={() => setOpenEdit(false)}
+        nameEvent={(e) => setName(e.target.value)}
+        supplier={supplier}
+        implications={implications}
+        price={price}
+        dosage={dosage}
+        supplierEvent={(e) => setSupplier(e.target.value)}
+        implicationsEvent={(e) => setImplications(e.target.value)}
+        priceEvent={(e) => setPrice(e.target.value)}
+        dossageEvent={(e) => setDosage(e.target.value)}
+        expiryEvent={(e) => setExpiry(e.target.value)}
+        handleEdit={() => handleEdit()}
+      />
       <SellDial
         open={openSell}
         itemName={item.name}
@@ -397,10 +460,10 @@ const ProductDetails = () => {
       <div className="dashboard-container">
         <div className="dash-left">
           <QuickStat
-            overallSales={totalSalesFigure}
+            overallSales={store.mode === "Admin" ? totalSalesFigure : "..."}
             dailySales={dailySalesFigure}
-            monthlySales={monthlySalesFigure}
-            annualSales={annualSalesFigure}
+            monthlySales={store.mode === "Admin" ? monthlySalesFigure : "..."}
+            annualSales={store.mode === "Admin" ? annualSalesFigure : "..."}
           />
           <div className="items-container">
             <div className="items-top">
@@ -415,13 +478,32 @@ const ProductDetails = () => {
                 <RestartAlt
                   className="icon-link mr10"
                   onClick={() => {
-                    setOpenRestock(true);
+                    store.mode !== "Admin"
+                      ? alert(
+                          "You don't have the privilege to perform this task"
+                        )
+                      : setOpenRestock(true);
                   }}
                 />
-                <Edit className="icon-link" onClick={() => setOpenEdit(true)} />
+                <Edit
+                  className="icon-link"
+                  onClick={() => {
+                    store.mode !== "Admin"
+                      ? alert(
+                          "You don't have the privilege to perform this task"
+                        )
+                      : setOpenEdit(true);
+                  }}
+                />
                 <Delete
                   className="icon-link"
-                  onClick={() => setOpenDial(true)}
+                  onClick={() => {
+                    store.mode !== "Admin"
+                      ? alert(
+                          "You don't have the privilege to perform this task"
+                        )
+                      : setOpenDial(true);
+                  }}
                 />
               </div>
             </div>
@@ -471,7 +553,7 @@ const ProductDetails = () => {
                 <div className="item-info-key-vale">
                   <span className="key">Status</span>:
                   <span className="value">
-                    {new Date(item?.expiry) < new Date() ? (
+                    {new Date(expiry) < new Date() ? (
                       <span className="expired">Expired</span>
                     ) : item.stock < 1 ? (
                       <span className="out-stock">Out of stock</span>
@@ -508,7 +590,7 @@ const ProductDetails = () => {
               width={850}
               height={400}
               className="areaChart"
-              data={data}
+              data={store.mode === "Admin" ? data : 0}
               margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
             >
               <defs>

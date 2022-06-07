@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { Add, Close } from "@mui/icons-material";
+import { useSelector } from "react-redux";
 export default function AddItemForm({
   open,
   handleClose,
@@ -20,6 +21,7 @@ export default function AddItemForm({
   dosageEvent,
   expiryEvent,
 }) {
+  const store = useSelector((state) => state.store.Store);
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
@@ -94,7 +96,7 @@ export default function AddItemForm({
           <Button onClick={handleClose}>
             <Close className="dial-icon cancel" />
           </Button>
-          <Button onClick={handleAdd}>
+          <Button onClick={handleAdd} disabled={store.mode !== "Admin"}>
             <Add className="dial-icon" />
           </Button>
         </DialogActions>

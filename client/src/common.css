@@ -178,6 +178,9 @@
   flex-wrap: wrap;
   gap: 10px;
 }
+.adm{
+  color: #333;
+}
 .footer-links{
   cursor: pointer;
   text-decoration: underline;

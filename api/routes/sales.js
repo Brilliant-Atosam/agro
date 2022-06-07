@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
 });
 // ADD SALES
 router.post("/", async (req, res) => {
-  const { item_id, item_name, quantity, cost, storeId, createdAt, id } =
+  const { item_id, item_name, quantity, cost, storeId, createdAt, id, mode } =
     req.body;
   try {
     const item = await Item.findOne({ id: item_id });
@@ -28,6 +28,7 @@ router.post("/", async (req, res) => {
         cost,
         createdAt,
         id,
+        mode,
       });
       await item.updateOne({ stock: item.stock - quantity });
       await newSales.save();

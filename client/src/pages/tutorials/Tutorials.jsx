@@ -19,23 +19,23 @@ export const Tutorials = () => {
           <h1 className="heading">Interpretation to icons</h1>
           <div className="icon-meaning">
             <MedicalServices className="icon" />
-            <span className="meaning">Add new drug to store</span>
+            <span className="meaning">Add new item to store</span>
           </div>
           <div className="icon-meaning">
             <Visibility className="icon" />
-            <span className="meaning">See drug details</span>
+            <span className="meaning">See item details</span>
           </div>
           <div className="icon-meaning">
             <CurrencyExchange className="icon" />
-            <span className="meaning">Sell drug</span>
+            <span className="meaning">Sell item</span>
           </div>
           <div className="icon-meaning">
             <RestartAlt className="icon" />
-            <span className="meaning">Restock drug</span>
+            <span className="meaning">Restock item</span>
           </div>
           <div className="icon-meaning">
             <ArrowForwardIos className="icon" />
-            <span className="meaning">Open all drugs/sales page</span>
+            <span className="meaning">Open all items/sales page</span>
           </div>
           <div className="icon-meaning">
             <Close className="icon" />
@@ -43,11 +43,11 @@ export const Tutorials = () => {
           </div>
           <div className="icon-meaning">
             <Delete className="icon" />
-            <span className="meaning">Delete drug</span>
+            <span className="meaning">Delete item</span>
           </div>
           <div className="icon-meaning">
             <Edit className="icon" />
-            <span className="meaning">Edit drug info</span>
+            <span className="meaning">Edit item details</span>
           </div>
         </div>
       </div>

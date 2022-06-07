@@ -3,7 +3,8 @@ import AlertComponent from "../../components/Alert";
 import { useState } from "react";
 import { request } from "../../request";
 import Loading from "../../components/Loading";
-import { Link, Navigate } from "react-router-dom";
+import moment from "moment";
+import { Link } from "react-router-dom";
 export const Register = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -15,10 +16,15 @@ export const Register = () => {
   const [loading, setLoading] = useState(false);
   const handleRegister = async () => {
     setLoading(true);
-    if (!name || password.length < 5 || password !== password2) {
+    if (!name || password.length < 5) {
       setOpen(true);
       setSeverity("warning");
-      setMessage("Invalid inputs/mismatched passwords");
+      setMessage("Invalid inputs");
+      setLoading(false);
+    } else if (password === password2) {
+      setOpen(true);
+      setSeverity("warning");
+      setMessage("Admin password cannot be same as attendant's password");
       setLoading(false);
     } else {
       try {
@@ -26,6 +32,11 @@ export const Register = () => {
           name,
           phone,
           password,
+          password2,
+          createdAt: moment().format("DD/MM/YYYY h:mm:ss"),
+          id: (Math.floor(Math.random() * 100000) + 100000)
+            .toString()
+            .substring(1),
         });
         await localStorage.setItem("storeId", res.data.id);
         window.location.href = "/login";
@@ -61,13 +72,13 @@ export const Register = () => {
       />
       <Input
         type="password"
-        placeholder="Password"
+        placeholder="Attendant's Password"
         value={password}
         event={(e) => setPassword(e.target.value)}
       />
       <Input
         type="password"
-        placeholder="Confirm Password"
+        placeholder="Admin's Password"
         value={password2}
         event={(e) => setPassword2(e.target.value)}
       />

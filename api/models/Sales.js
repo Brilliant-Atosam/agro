@@ -7,5 +7,6 @@ const salesSchema = new mongoose.Schema({
   quantity: Number,
   cost: Number,
   createdAt: String,
+  mode: String,
 });
 module.exports = mongoose.model("Sales", salesSchema);

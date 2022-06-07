@@ -21,6 +21,7 @@ export default function Password({
   oldEvent,
   newEvent,
   confirmEvent,
+  adminEvent,
 }) {
   return (
     <Dialog open={open} onClose={close}>
@@ -35,7 +36,7 @@ export default function Password({
         <DialogContentText>
           <TextField
             margin="dense"
-            label="Old password"
+            label="Admin's password"
             type="password"
             fullWidth
             variant="outlined"
@@ -60,6 +61,12 @@ export default function Password({
             className="dial-input"
             onChange={confirmEvent}
           />
+          <div className="opt">
+            <input type="checkbox" id="admin" onChange={adminEvent} />{" "}
+            <label htmlFor="admin" className="adm">
+              Change Admin Password
+            </label>
+          </div>
         </DialogContentText>
       </DialogContent>
       <DialogActions>

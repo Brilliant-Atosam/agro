@@ -21,6 +21,7 @@ export const salesColumn = [
   { field: "item_name", headerName: "Drug", width: 200 },
   { field: "quantity", headerName: "Qty", width: 40 },
   { field: "cost", headerName: "Cost", width: 130 },
+  { field: "mode", headerName: "Issuer", width: 130 },
   {
     field: "createdAt",
     headerName: "Date",
@@ -38,4 +39,5 @@ export const itemSalesColumn = [
   },
   { field: "quantity", headerName: "Qty", width: 40 },
   { field: "cost", headerName: "Cost", width: 130 },
+  { field: "mode", headerName: "Issuer", width: 130 },
 ];

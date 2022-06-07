@@ -20,6 +20,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 const Sales = () => {
   const storeId = localStorage.getItem("storeId");
+  const store = useSelector((state) => state.store.Store);
   const dispatch = useDispatch();
   const salesRecords = useSelector((state) => state.sales.Sales);
   const dailySales = salesRecords?.filter(
@@ -261,9 +262,9 @@ const Sales = () => {
         <div className="dash-left">
           <QuickStat
             dailySales={dailySalesFigure}
-            monthlySales={monthlySalesFigure}
-            annualSales={annualSalesFigure}
-            overallSales={totalSalesFigure}
+            monthlySales={store.mode === "Admin" ? monthlySalesFigure : "..."}
+            annualSales={store.mode === "Admin" ? annualSalesFigure : "..."}
+            overallSales={store.mode === "Admin" ? totalSalesFigure : "..."}
           />
           <div className="drugs-container">
             <div className="drugs-top">
@@ -291,7 +292,7 @@ const Sales = () => {
             width={850}
             height={400}
             className="areaChart"
-            data={data}
+            data={store.mode !== "Admin" ? 0 : data}
             margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
           >
             <defs>

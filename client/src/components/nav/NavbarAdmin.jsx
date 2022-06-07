@@ -1,7 +1,6 @@
 import "./navbar.css";
 import { Autorenew } from "@mui/icons-material";
 import LogoutSharp from "@mui/icons-material/Logout";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Logout } from "../../redux/admin";
 import { useDispatch } from "react-redux";
@@ -19,7 +18,7 @@ const NavbarAdmin = ({ refresh }) => {
     <div className="navbar-container">
       <div className="nav-left">
         <Link to="/">
-          <h1 className="logo">Agro</h1>
+          <h1 className="logo">Home</h1>
         </Link>
         <li className="refresh" key={0} onClick={refresh}>
           <Autorenew />

@@ -163,6 +163,7 @@ const Dashboard = () => {
     } else {
       const salesDetails = {
         storeId,
+        mode: store.mode,
         item_name: name,
         item_id: id,
         cost: price * quantity,
@@ -352,6 +353,7 @@ const Dashboard = () => {
       <div className="dashboard-container">
         <div className="dash-left">
           <QuickStat
+            user={store.mode}
             itemsNum={itemsNum}
             outStock={items?.filter((item) => item.stock < 1).length}
             dailySales={dailySales}
@@ -400,7 +402,13 @@ const Dashboard = () => {
               <div className="head-links">
                 <MedicalServices
                   className="icon-link mr10"
-                  onClick={() => setOpenAdd(true)}
+                  onClick={() => {
+                    store.mode === "Admin"
+                      ? setOpenAdd(true)
+                      : alert(
+                          "You don't have the privilege to perform this duty"
+                        );
+                  }}
                 />
                 <Link to="/items">
                   <ArrowForwardIos className="icon-link" />

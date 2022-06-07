@@ -8,7 +8,7 @@ import {
   Search,
   RestartAlt,
 } from "@mui/icons-material";
-import Footer from '../../components/Footer'
+import Footer from "../../components/Footer";
 import SnackbarAlert from "../../components/Snackback";
 import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
@@ -26,6 +26,7 @@ import SellItemForm from "../dashboard/Sell";
 import AddItemForm from "../dashboard/AddItem";
 import QuickStat from "./QuickStat";
 const Items = () => {
+  const store = useSelector((state) => state.store.Store);
   const storeId = localStorage.getItem("storeId");
   const dispatch = useDispatch();
   useEffect(() => {
@@ -125,6 +126,7 @@ const Items = () => {
         id: (Math.floor(Math.random() * 100000) + 100000)
           .toString()
           .substring(1),
+        mode: store.mode,
       };
       try {
         const res = await request.post("/sales", salesDetails);
@@ -378,6 +380,7 @@ const Items = () => {
               <button
                 className="btn add-item-btn mt10"
                 onClick={() => handleAdd()}
+                disabled={store.mode !== "Admin"}
               >
                 <Add className="mr10" /> Add Item
               </button>
@@ -422,7 +425,11 @@ const Items = () => {
             <div className="head-links">
               <MedicalServices
                 className="icon-link mr10"
-                onClick={() => setOpenAdd(true)}
+                onClick={() => {
+                  store.mode !== "Admin"
+                    ? alert("You't have the privilege to perform this task!")
+                    : setOpenAdd(true);
+                }}
               />
               <Link to="/items">
                 <ArrowForwardIos className="icon-link" />

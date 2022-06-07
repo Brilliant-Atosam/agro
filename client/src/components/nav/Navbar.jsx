@@ -1,5 +1,10 @@
 import "./navbar.css";
-import { Autorenew, InventoryOutlined, Menu, TrendingUp } from "@mui/icons-material";
+import {
+  Autorenew,
+  InventoryOutlined,
+  Menu,
+  TrendingUp,
+} from "@mui/icons-material";
 import LogoutSharp from "@mui/icons-material/Logout";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -24,7 +29,7 @@ const Navbar = ({ refresh }) => {
     <div className="navbar-container">
       <div className="nav-left">
         <Link to="/">
-          <h1 className="logo">Agro</h1>
+          <h1 className="logo">Home</h1>
         </Link>
         <li className="refresh" key={0} onClick={refresh}>
           Refresh <Autorenew />

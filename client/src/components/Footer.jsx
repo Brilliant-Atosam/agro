@@ -5,11 +5,13 @@ import {
   WhatsApp,
 } from "@mui/icons-material";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { request } from "../request";
 import Password from "./Password";
 
 export default function Footer() {
   const storeId = localStorage.getItem("storeId");
+  const store = useSelector((state) => state.store.Store);
   const [openPass, setOpenPass] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
   const [severity, setSeverity] = useState("");
@@ -17,6 +19,7 @@ export default function Footer() {
   const [oldPassword, setOldPassword] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
+  const [admin, setAdmin] = useState(false);
   const handleReset = async () => {
     if (!oldPassword || !password || !password2) {
       setOpenAlert(true);
@@ -31,6 +34,7 @@ export default function Footer() {
         const res = await request.put(`/store/password/reset?id=${storeId}`, {
           password,
           oldPassword,
+          admin,
         });
         setOpenAlert(true);
         setMessage(res.data);
@@ -55,12 +59,20 @@ export default function Footer() {
         oldEvent={(e) => setOldPassword(e.target.value)}
         newEvent={(e) => setPassword(e.target.value)}
         confirmEvent={(e) => setPassword2(e.target.value)}
+        adminEvent={(e) => setAdmin(!admin)}
       />
       <div className="footer-items">
         <a href="https://wa.me/233553385436" className="footer-links">
           <WhatsApp /> Feedback
         </a>
-        <li className="footer-links" onClick={() => setOpenPass(true)}>
+        <li
+          className="footer-links"
+          onClick={() => {
+            store.mode !== "Admin"
+              ? alert("You don't have such privilege")
+              : setOpenPass(true);
+          }}
+        >
           <LockReset />
           Reset password
         </li>
