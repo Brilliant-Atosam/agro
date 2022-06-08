@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const Store = require("../models/Store");
-const moment = require("moment");
 // LOGIN
 router.post("/", async (req, res) => {
   const { password, admin } = req.body;
@@ -17,7 +16,6 @@ router.post("/", async (req, res) => {
       : res.status(409).json("Invalid login credentials");
   } catch (err) {
     res.status(500).json("Oooops! Please try again");
-    console.log(err);
   }
 });
 // LOGIN

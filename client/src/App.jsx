@@ -7,8 +7,6 @@ import Sales from "./pages/sales/Sales";
 import { useSelector } from "react-redux";
 import Items from "./pages/products/Items";
 import { Register } from "./pages/register/Register";
-import Subscribe from "./pages/Subscribe";
-import RenewSub from "./pages/RenewSub";
 import { Tutorials } from "./pages/tutorials/Tutorials";
 import Admin from "./pages/adminDashboard/Admin";
 import { AdminLogin } from "./pages/adminLogin/AdminLogin";

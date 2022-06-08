@@ -41,8 +41,7 @@ router.put("/:id", async (req, res) => {
         nextVerification: moment().add(30, "days").format("MM/DD/YYYY"),
       }
     );
-    res.status(200).json();
-    console.log("The work is done");
+    res.status(200).json(`Subscription was successful`);
   } catch (err) {
     res.status(500).json("Oooops! Try again");
     console.log(err.message);

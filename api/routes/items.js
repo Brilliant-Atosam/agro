@@ -22,6 +22,9 @@ router.post("/", async (req, res) => {
     price,
     storeId,
     expiry,
+    id,
+    createdAt,
+    updatedAt,
   } = req.body;
   try {
     const newItem = new Item({
@@ -33,15 +36,15 @@ router.post("/", async (req, res) => {
       price,
       storeId,
       expiry,
-      createdAt: moment().format("DD/MM/YYYY h:mm:ss"),
-      updatedAt: moment().format("DD/M/YYYY h:mm:ss"),
-      id: (Math.floor(Math.random() * 100000) + 100000).toString().substring(1),
+      createdAt,
+      updatedAt,
+      id,
     });
     await newItem.save();
     res.status(200).json("Item has been added successfully");
   } catch (err) {
     res.status(500).json("Something went wrong!");
-    console.log(err.message);
+    console.log(err);
   }
 });
 // EDIT DRUG

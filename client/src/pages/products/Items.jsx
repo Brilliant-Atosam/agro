@@ -79,6 +79,8 @@ const Items = () => {
       price,
       expiry: moment(expiry).format("MM/DD/YYYY"),
       id: (Math.floor(Math.random() * 100000) + 100000).toString().substring(1),
+      createdAt: moment().format("DD/MM/YYYY h:mm:ss"),
+      updatedAt: moment().format("DD/M/YYYY h:mm:ss"),
     };
     if (!name || !stock || !price) {
       setOpenSnack(true);

@@ -1,4 +1,5 @@
 import {
+  InfoOutlined,
   LockReset,
   ManageAccounts,
   Settings,
@@ -8,11 +9,13 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { request } from "../request";
 import Password from "./Password";
+import Summary from "./StoreSummary";
 
 export default function Footer() {
   const storeId = localStorage.getItem("storeId");
   const store = useSelector((state) => state.store.Store);
   const [openPass, setOpenPass] = useState(false);
+  const [openSum, setOpenSum] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
   const [severity, setSeverity] = useState("");
   const [message, setMessage] = useState("");
@@ -61,6 +64,7 @@ export default function Footer() {
         confirmEvent={(e) => setPassword2(e.target.value)}
         adminEvent={(e) => setAdmin(!admin)}
       />
+      <Summary open={openSum} close={() => setOpenSum(false)} />
       <div className="footer-items">
         <a href="https://wa.me/233553385436" className="footer-links">
           <WhatsApp /> Feedback
@@ -75,6 +79,16 @@ export default function Footer() {
         >
           <LockReset />
           Reset password
+        </li>
+        <li
+          className="footer-links"
+          onClick={() => {
+            store.mode !== "Admin"
+              ? alert("You don't have such privilege")
+              : setOpenSum(true);
+          }}
+        >
+          <InfoOutlined /> Store Summary
         </li>
         <li className="footer-links">
           <Settings /> Store settings

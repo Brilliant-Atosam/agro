@@ -30,7 +30,6 @@ export default function Subscribe({
   const onClose = () => {
     window.location.reload();
   };
-
   const handleSubscribe = async () => {
     const res = await request.put(`/store/${storeId}`, {});
     alert(res.data);
