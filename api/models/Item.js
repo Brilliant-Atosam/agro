@@ -9,7 +9,6 @@ const drugSchema = new mongoose.Schema({
   implications: [String],
   dosage: String,
   price: Number,
-  img: String,
   createdAt: String,
   updatedAt: String,
 });

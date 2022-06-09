@@ -34,6 +34,7 @@ export const Login = () => {
           password,
           admin,
         });
+        console.log(res.data);
         setOpen(true);
         setSeverity("success");
         setMessage("Login successful. Redirecting to dashoard");

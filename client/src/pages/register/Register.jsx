@@ -51,7 +51,7 @@ export const Register = () => {
   return (
     <div className="login-container p20">
       <Loading open={loading} />
-      <h1 className="login-greetings">Welcome! Create Account to continue</h1>
+      <h1 className="login-greetings">Welcome! Create Store to continue</h1>
       <AlertComponent
         open={open}
         close={() => setOpen(false)}
@@ -87,7 +87,7 @@ export const Register = () => {
         disabled={loading}
         onClick={() => handleRegister()}
       >
-        {loading ? "Please wait..." : "Create Account"}
+        {loading ? "Please wait..." : "Create Store"}
       </button>
       <Link to="/login" className="instead">
         Login in instead

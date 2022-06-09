@@ -11,7 +11,7 @@ import { Close } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 export default function Summary({ open, close }) {
   const allItems = useSelector((state) => state.items.Items);
-  const pieces = [];
+  const pieces = [0, 0];
   allItems.forEach((item) => pieces.push(item.stock));
   const inStock = allItems.filter((item) => item.stock > 0);
   let inStockFigures = [0, 0];

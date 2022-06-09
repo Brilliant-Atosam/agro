@@ -16,6 +16,7 @@ function App() {
   const items = useSelector((state) => state.items.Items);
   const admin = useSelector((state) => state.admin.Admin);
   const clients = useSelector((state) => state.clients.Clients);
+  document.title = store ? store?.name : "Agro Shop Management System | Bongostores";
   return (
     <BrowserRouter>
       <div className="container">

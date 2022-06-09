@@ -1,4 +1,4 @@
-import { CancelOutlined, Check, Close } from "@mui/icons-material";
+import { Check, Close } from "@mui/icons-material";
 import {
   Button,
   Dialog,
