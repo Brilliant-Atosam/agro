@@ -38,7 +38,8 @@ const Dashboard = () => {
     dispatch(salesStart());
     try {
       const items = await request.get(`/items?storeId=${storeId}`);
-      dispatch(itemsSuccess(items.data));
+      await dispatch(itemsSuccess(items.data));
+      await setItems;
       const sales = await request.get(`/sales?storeId=${storeId}`);
       dispatch(salesSuccess(sales.data));
       window.location.reload();
@@ -77,23 +78,11 @@ const Dashboard = () => {
   const salesToday = sales?.filter(
     (sale) => sale.createdAt?.indexOf(moment().format("DD/MM/YYYY")) > -1
   );
-  let salesTodayFigures = [];
+  let salesTodayFigures = [0, 0];
   salesToday?.forEach((sale) => salesTodayFigures.push(sale.cost));
 
   const [dailySales, setDailySales] = useState(
-    salesTodayFigures.length > 0 ? salesTodayFigures.reduce((a, b) => a + b) : 0
-  );
-
-  const salesMonth = sales?.filter(
-    (sale) => sale?.createdAt?.indexOf(moment().format("MM/YYYY")) > -1
-  );
-  let monthlySalesFigures = [];
-  salesMonth?.forEach((sale) => monthlySalesFigures.push(sale.cost));
-
-  const [monthlySales, setMonthlySales] = useState(
-    monthlySalesFigures.length > 0
-      ? monthlySalesFigures.reduce((a, b) => a + b)
-      : 0
+    salesTodayFigures.reduce((a, b) => a + b)
   );
   const [openSell, setOpenSell] = useState(false);
   const [openStock, setOpenStock] = useState(false);
@@ -178,7 +167,6 @@ const Dashboard = () => {
         setQuantity(0);
         setSales([salesDetails, ...sales]);
         setDailySales(dailySales + salesDetails.cost);
-        setMonthlySales(monthlySales + salesDetails.cost);
         setMessage(res.data);
         setOpenSnack(true);
       } catch (err) {

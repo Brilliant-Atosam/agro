@@ -15,7 +15,7 @@ import { useSelector, useDispatch } from "react-redux";
 import DataTable from "../../components/Table";
 import { itemsStart, itemsSuccess, itemsFailure } from "../../redux/items";
 import { TextField } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { request } from "../../request";
 import { Link } from "react-router-dom";
 import Restock from "../dashboard/Restock";
@@ -29,18 +29,7 @@ const Items = () => {
   const store = useSelector((state) => state.store.Store);
   const storeId = localStorage.getItem("storeId");
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(itemsStart);
-    try {
-      const fetchData = async () => {
-        const items = await request.get(`/items?storeId=${storeId}`);
-        dispatch(itemsSuccess(items.data));
-      };
-      fetchData();
-    } catch (err) {
-      dispatch(itemsFailure(err.response.data));
-    }
-  }, [dispatch, storeId]);
+
   const [openAdd, setOpenAdd] = useState(false);
   const allItems = useSelector((state) => state.items.Items);
   const [items, setItems] = useState(allItems);

@@ -14,12 +14,12 @@ export default function Summary({ open, close }) {
   const pieces = [];
   allItems.forEach((item) => pieces.push(item.stock));
   const inStock = allItems.filter((item) => item.stock > 0);
-  let inStockFigures = [];
+  let inStockFigures = [0, 0];
   inStock.forEach((item) => inStockFigures.push(item.price * item.stock));
   const costInstock = inStockFigures.reduce((a, b) => a + b);
 
   const salesRecords = useSelector((state) => state.sales.Sales);
-  let totalSalesFigures = [];
+  let totalSalesFigures = [0, 0];
   salesRecords.forEach((sale) => totalSalesFigures.push(sale.cost));
   const totalSalesFigure =
     totalSalesFigures.length > 0
@@ -28,9 +28,9 @@ export default function Summary({ open, close }) {
   const expired = allItems?.filter(
     (item) => new Date(item.expiry) <= new Date()
   );
-  const expPieces = [];
+  const expPieces = [0, 0];
   expired.forEach((item) => expPieces.push(item.stock));
-  let expFigures = [];
+  let expFigures = [0, 0];
   expired.forEach((item) => expFigures.push(item.price * item.stock));
   const expCost = expFigures.reduce((a, b) => a + b);
 
